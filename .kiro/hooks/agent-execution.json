@@ -1,0 +1,103 @@
+{
+  "version": "v1",
+  "name": "NecroCode Agent Execution Hooks",
+  "description": "Trigger hooks that fire on visual agent stage transitions in the NecroCode Visual Agent Studio. These map 1:1 to the WORKFLOW_STAGES in lib/types.ts and drive the canvas node highlighting, neon trails, and terminal SFX. Each hook declares the target stage, the agent phase it corresponds to, and the visual/audio effect to apply.",
+  "stateMachine": {
+    "states": ["idle", "scanning", "processing", "complete"],
+    "initial": "idle",
+    "transitions": [
+      { "from": "idle", "to": "scanning", "on": "run-start" },
+      { "from": "scanning", "to": "processing", "on": "context-ready" },
+      { "from": "processing", "to": "complete", "on": "code-emitted" }
+    ]
+  },
+  "hooks": [
+    {
+      "name": "on-run-start",
+      "trigger": "PreTaskExec",
+      "description": "Fires when the user clicks 'Run Agent Exorcism'. Resets the canvas to Idle and opens the SSE stream.",
+      "stage": null,
+      "phase": "thinking",
+      "uiState": "idle",
+      "action": {
+        "type": "visual",
+        "effect": "reset-canvas",
+        "sfx": "click"
+      }
+    },
+    {
+      "name": "on-input-parsing",
+      "trigger": "PostToolUse",
+      "matcher": "input_parsing",
+      "description": "Highlights the Input Parsing node with a pulsing border and emits a node-activate blip.",
+      "stage": "input_parsing",
+      "phase": "thinking",
+      "uiState": "scanning",
+      "action": {
+        "type": "visual",
+        "effect": "pulse-border",
+        "glow": "blue",
+        "sfx": "node"
+      }
+    },
+    {
+      "name": "on-context-scanning",
+      "trigger": "PostToolUse",
+      "matcher": "context_scanning",
+      "description": "Highlights the Context Scanning node and streams a neon trail from the previous node (Scanning state).",
+      "stage": "context_scanning",
+      "phase": "tool_call",
+      "uiState": "scanning",
+      "action": {
+        "type": "visual",
+        "effect": "neon-trail",
+        "glow": "blue",
+        "sfx": "tool"
+      }
+    },
+    {
+      "name": "on-kiro-hook-trigger",
+      "trigger": "PostToolUse",
+      "matcher": "kiro_hook_trigger",
+      "description": "Highlights the Kiro Hook Trigger node and streams a neon trail to the next node (Processing state).",
+      "stage": "kiro_hook_trigger",
+      "phase": "executing",
+      "uiState": "processing",
+      "action": {
+        "type": "visual",
+        "effect": "neon-trail",
+        "glow": "purple",
+        "sfx": "node"
+      }
+    },
+    {
+      "name": "on-code-generation",
+      "trigger": "PostToolUse",
+      "matcher": "code_generation",
+      "description": "Highlights the Code Generation node while synthesized code streams into the terminal.",
+      "stage": "code_generation",
+      "phase": "executing",
+      "uiState": "processing",
+      "action": {
+        "type": "visual",
+        "effect": "pulse-border",
+        "glow": "green",
+        "sfx": "success"
+      }
+    },
+    {
+      "name": "on-run-complete",
+      "trigger": "PostTaskExec",
+      "description": "Fires when the workflow reaches Complete. Marks all nodes done and plays the completion chord.",
+      "stage": null,
+      "phase": "complete",
+      "uiState": "complete",
+      "action": {
+        "type": "visual",
+        "effect": "complete-pulse",
+        "glow": "green",
+        "sfx": "complete"
+      }
+    }
+  ]
+}

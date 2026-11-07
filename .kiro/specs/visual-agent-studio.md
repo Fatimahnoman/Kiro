@@ -75,3 +75,20 @@ Transport headers: `Content-Type: text/event-stream`, `Cache-Control: no-cache`,
 - [x] Progress bar reaches 100% on `complete`.
 - [x] Re-running resets canvas + terminal cleanly.
 - [x] Builds with zero TypeScript errors; deploys to Vercel with no setup.
+
+## 6. Visual Polish & Micro-interactions
+
+- [x] **Pulsing glow borders** on the active stage node (`animate-border-pulse`).
+- [x] **Neon trail effects** along connectors that flow while handing off from a
+      completed node to the next active node (`animate-trail-flow`).
+- [x] **Animated cyberpunk grid** backdrop (`animate-grid-drift`), toggleable.
+- [x] **CRT scanline overlay** on the terminal, toggleable.
+- [x] **Cyber Sound FX** — synthesized Web Audio blips per node/tool/success/
+      complete/error/copy event, fully toggleable (off by default).
+- [x] **Quick-copy** of generated code lines with a glowing "Copied!" badge.
+- [x] **Zero layout shift** across `Idle → Scanning → Processing → Complete`:
+      the node status slot is a fixed 1rem square and transitions animate only
+      `box-shadow`, `border-color`, and `transform`.
+
+The visual stage-transition contract is documented as trigger hooks in
+`#[[file:../hooks/agent-execution.json]]`.

@@ -24,6 +24,13 @@ Built with **Next.js 15 (App Router)**, **Tailwind CSS**, **Framer Motion**,
   node highlighting and step-by-step terminal output.
 - **Glassmorphism + neon** design system (electric blue `#00F0FF`, neon purple
   `#A855F7`, emerald success `#10B981`) on a deep navy/black base.
+- **Rich micro-interactions**
+  - Pulsing glow borders on the active stage; neon trails flow between nodes.
+  - Animated cyberpunk grid backdrop + CRT scanline overlay — both toggleable.
+  - **Cyber Sound FX** — synthesized Web Audio blips on node transitions
+    (no audio files, fully toggleable, off by default).
+  - Quick-copy of generated code with a glowing **"Copied!"** badge.
+  - Zero layout shift across `Idle → Scanning → Processing → Complete`.
 - **Zero external setup** — the agent run is simulated server-side, so there are
   no API keys, secrets, or config required. Deploys to Vercel as-is.
 
