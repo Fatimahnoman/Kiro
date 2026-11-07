@@ -3,33 +3,32 @@
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
+type Accent = "blood" | "haunt" | "spectral";
+
 interface ToggleButtonProps {
   label: string;
   icon: LucideIcon;
   active: boolean;
   onToggle: () => void;
-  accent?: "blue" | "purple" | "green";
+  accent?: Accent;
   title?: string;
 }
 
-const ACCENT: Record<
-  NonNullable<ToggleButtonProps["accent"]>,
-  { on: string; text: string; dot: string }
-> = {
-  blue: {
-    on: "border-neon-blue/60 bg-neon-blue/10 shadow-glow-blue",
-    text: "text-neon-blue",
-    dot: "bg-neon-blue",
+const ACCENT: Record<Accent, { on: string; text: string; dot: string }> = {
+  blood: {
+    on: "border-blood/60 bg-blood/10 shadow-glow-blood",
+    text: "text-blood",
+    dot: "bg-blood",
   },
-  purple: {
-    on: "border-neon-purple/60 bg-neon-purple/10 shadow-glow-purple",
-    text: "text-neon-purple",
-    dot: "bg-neon-purple",
+  haunt: {
+    on: "border-haunt/60 bg-haunt/10 shadow-glow-haunt",
+    text: "text-haunt",
+    dot: "bg-haunt",
   },
-  green: {
-    on: "border-neon-green/60 bg-neon-green/10 shadow-glow-green",
-    text: "text-neon-green",
-    dot: "bg-neon-green",
+  spectral: {
+    on: "border-spectral/60 bg-spectral/10 shadow-glow-spectral",
+    text: "text-spectral",
+    dot: "bg-spectral",
   },
 };
 
@@ -38,7 +37,7 @@ export function ToggleButton({
   icon: Icon,
   active,
   onToggle,
-  accent = "blue",
+  accent = "spectral",
   title,
 }: ToggleButtonProps) {
   const a = ACCENT[accent];

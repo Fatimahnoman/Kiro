@@ -4,82 +4,87 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   CheckCircle2,
   FileCode2,
+  Ghost,
   ScanSearch,
-  Terminal as TerminalIcon,
-  Webhook,
+  Skull,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
-import {
-  type NodeStatus,
-  type StageId,
-  WORKFLOW_STAGES,
-} from "@/lib/types";
+import { type NodeStatus, type StageId, WORKFLOW_STAGES } from "@/lib/types";
 import type { NodeStatusMap } from "@/lib/useAgentStream";
 
 const STAGE_ICON: Record<StageId, LucideIcon> = {
-  input_parsing: TerminalIcon,
-  context_scanning: ScanSearch,
-  kiro_hook_trigger: Webhook,
-  code_generation: FileCode2,
+  input_code: FileCode2,
+  glitch_scanner: ScanSearch,
+  exorcism_reasoning: Skull,
+  clean_output: Sparkles,
 };
-
-type Accent = "blue" | "purple" | "green" | "rose" | "slate";
 
 interface StatusStyle {
   ring: string;
   glow: string;
-  glowXl: string;
   icon: string;
   chip: string;
   chipText: string;
-  pulseBorder: string;
-  accent: Accent;
+  haloBorder: string;
+  halo: boolean;
+  bloodPulse: boolean;
 }
 
 const STATUS_STYLE: Record<NodeStatus, StatusStyle> = {
   pending: {
     ring: "border-white/10",
     glow: "",
-    glowXl: "",
-    icon: "text-slate-500",
-    chip: "bg-slate-700/40",
-    chipText: "text-slate-400",
-    pulseBorder: "",
-    accent: "slate",
+    icon: "text-slate-600",
+    chip: "bg-slate-800/60",
+    chipText: "text-slate-500",
+    haloBorder: "",
+    halo: false,
+    bloodPulse: false,
   },
   active: {
-    ring: "border-neon-blue/70",
-    glow: "shadow-glow-blue",
-    glowXl: "shadow-glow-blue-xl",
-    icon: "text-neon-blue",
-    chip: "bg-neon-blue/20",
-    chipText: "text-neon-blue",
-    pulseBorder: "border-neon-blue",
-    accent: "blue",
+    ring: "border-spectral/70",
+    glow: "shadow-glow-spectral-xl",
+    icon: "text-spectral",
+    chip: "bg-spectral/20",
+    chipText: "text-spectral",
+    haloBorder: "border-spectral",
+    halo: true,
+    bloodPulse: false,
   },
-  done: {
-    ring: "border-neon-green/60",
-    glow: "shadow-glow-green",
-    glowXl: "shadow-glow-green-xl",
-    icon: "text-neon-green",
-    chip: "bg-neon-green/20",
-    chipText: "text-neon-green",
-    pulseBorder: "border-neon-green",
-    accent: "green",
+  haunted: {
+    ring: "border-blood",
+    glow: "shadow-glow-blood-xl",
+    icon: "text-blood",
+    chip: "bg-blood/25",
+    chipText: "text-blood",
+    haloBorder: "border-blood",
+    halo: true,
+    bloodPulse: true,
+  },
+  cleansed: {
+    ring: "border-ecto/70",
+    glow: "shadow-glow-ecto-xl",
+    icon: "text-ecto",
+    chip: "bg-ecto/20",
+    chipText: "text-ecto",
+    haloBorder: "border-haunt",
+    halo: false,
+    bloodPulse: false,
   },
   error: {
-    ring: "border-neon-rose/70",
-    glow: "",
-    glowXl: "",
-    icon: "text-neon-rose",
-    chip: "bg-neon-rose/20",
-    chipText: "text-neon-rose",
-    pulseBorder: "border-neon-rose",
-    accent: "rose",
+    ring: "border-blood/70",
+    glow: "shadow-glow-blood",
+    icon: "text-blood",
+    chip: "bg-blood/20",
+    chipText: "text-blood",
+    haloBorder: "border-blood",
+    halo: false,
+    bloodPulse: false,
   },
 };
 
-function StageNode({
+function GhostNode({
   index,
   stageId,
   label,
@@ -94,41 +99,35 @@ function StageNode({
 }) {
   const Icon = STAGE_ICON[stageId];
   const s = STATUS_STYLE[status];
-  const isActive = status === "active";
+  const isWorking = status === "active" || status === "haunted";
 
   return (
     <div
       className={[
-        "glass relative flex flex-1 flex-col gap-3 rounded-2xl border p-5",
+        "glass relative flex flex-1 flex-col items-center gap-3 rounded-2xl border p-5 text-center",
         "transition-[box-shadow,border-color] duration-500",
         s.ring,
-        isActive ? s.glowXl : s.glow,
+        s.glow,
+        s.bloodPulse ? "animate-blood-pulse" : "",
       ].join(" ")}
     >
-      {/* Pulsing glow border when the stage is running (requirement 1a). */}
-      {isActive && (
+      {/* Haunted halo ring */}
+      {s.halo && (
         <span
           aria-hidden
-          className={`pointer-events-none absolute -inset-px rounded-2xl border-2 ${s.pulseBorder} animate-border-pulse`}
-        />
-      )}
-      {/* Steady exit ring once a stage is done. */}
-      {status === "done" && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-2xl border border-neon-green/40"
+          className={`pointer-events-none absolute -inset-px rounded-2xl border-2 ${s.haloBorder} ${
+            s.bloodPulse ? "animate-blood-pulse" : "animate-border-pulse"
+          }`}
         />
       )}
 
-      <div className="relative flex items-center justify-between">
+      <div className="relative flex w-full items-center justify-between">
         <span
           className={`rounded-md px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${s.chip} ${s.chipText}`}
         >
-          Stage {index + 1}
+          {String(index + 1).padStart(2, "0")}
         </span>
-
-        {/* Fixed-size status slot — reserves space so there is zero layout
-            shift as the node moves pending -> active -> done. */}
+        {/* Fixed-size status slot → zero layout shift */}
         <span className="flex h-4 w-4 items-center justify-center">
           <AnimatePresence mode="wait">
             {status === "active" && (
@@ -140,34 +139,63 @@ function StageNode({
                 transition={{
                   rotate: { duration: 2, repeat: Infinity, ease: "linear" },
                 }}
-                className="h-4 w-4 rounded-full border-2 border-neon-blue/30 border-t-neon-blue"
+                className="h-4 w-4 rounded-full border-2 border-spectral/30 border-t-spectral"
               />
             )}
-            {status === "done" && (
+            {status === "haunted" && (
+              <motion.span
+                key="haunt"
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Skull className="h-4 w-4 text-blood" aria-hidden />
+              </motion.span>
+            )}
+            {status === "cleansed" && (
               <motion.span
                 key="done"
                 initial={{ opacity: 0, scale: 0.4 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                <CheckCircle2 className="h-4 w-4 text-neon-green" aria-hidden />
+                <CheckCircle2 className="h-4 w-4 text-ecto" aria-hidden />
               </motion.span>
             )}
           </AnimatePresence>
         </span>
       </div>
 
+      {/* Floating ghost/skull orb */}
       <motion.div
-        animate={isActive ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-        transition={{ duration: 1.8, repeat: isActive ? Infinity : 0 }}
-        className={`relative grid h-12 w-12 place-items-center rounded-xl border ${s.ring} bg-black/40`}
+        animate={
+          status === "haunted"
+            ? { scale: [1, 1.1, 1] }
+            : isWorking
+              ? { y: [0, -8, 0] }
+              : { y: 0, scale: 1 }
+        }
+        transition={{
+          duration: status === "haunted" ? 1.1 : 4,
+          repeat: isWorking ? Infinity : 0,
+          ease: "easeInOut",
+        }}
+        className={`relative grid h-16 w-16 place-items-center rounded-full border ${s.ring} bg-black/50`}
       >
-        <Icon className={`h-6 w-6 ${s.icon}`} aria-hidden />
+        <Icon className={`h-7 w-7 ${s.icon}`} aria-hidden />
+        {/* Little hovering ghost when haunted */}
+        {status === "haunted" && (
+          <motion.span
+            className="absolute -right-2 -top-2"
+            animate={{ y: [0, -4, 0], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 1.4, repeat: Infinity }}
+          >
+            <Ghost className="h-4 w-4 text-blood" aria-hidden />
+          </motion.span>
+        )}
       </motion.div>
 
       <div className="relative">
-        <h3 className="font-mono text-sm font-semibold text-slate-100">
-          {label}
-        </h3>
+        <h3 className="font-mono text-sm font-semibold text-bone/90">{label}</h3>
         <p className="mt-1 font-mono text-[11px] leading-relaxed text-slate-500">
           {description}
         </p>
@@ -176,51 +204,43 @@ function StageNode({
   );
 }
 
-/**
- * Neon trail connector between two nodes (requirement 1b).
- * - "filled"  → the left node is done: a steady lit bar.
- * - "flowing" → the right node is active: an animated pulse of light travels
- *   along the trail, visually connecting the active nodes.
- */
+/** Spectral connector between two ghost nodes. */
 function Connector({
   filled,
   flowing,
+  haunted,
 }: {
   filled: boolean;
   flowing: boolean;
+  haunted: boolean;
 }) {
-  const lit = filled || flowing;
+  const lit = filled || flowing || haunted;
+  const grad = haunted
+    ? "from-blood to-haunt"
+    : "from-spectral to-ecto";
   return (
-    <div className="relative flex items-center justify-center lg:w-12">
-      {/* Horizontal on lg, vertical on small screens */}
+    <div className="relative flex items-center justify-center lg:w-10">
       <div className="relative hidden h-0.5 w-full overflow-hidden rounded-full bg-white/10 lg:block">
         <motion.div
-          className="h-full bg-gradient-to-r from-neon-blue to-neon-green shadow-glow-blue"
+          className={`h-full bg-gradient-to-r ${grad}`}
           initial={{ width: 0 }}
           animate={{ width: lit ? "100%" : "0%" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         />
-        {/* Traveling neon pulse along the trail while handing off. */}
         {flowing && (
           <span
             aria-hidden
-            className="absolute inset-0 animate-trail-flow bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/90 to-transparent"
+            className="absolute inset-0 animate-trail-flow bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/80 to-transparent"
           />
         )}
       </div>
-      <div className="relative h-6 w-0.5 overflow-hidden rounded-full bg-white/10 lg:hidden">
+      <div className="relative h-5 w-0.5 overflow-hidden rounded-full bg-white/10 lg:hidden">
         <motion.div
-          className="w-full bg-gradient-to-b from-neon-blue to-neon-green"
+          className={`w-full bg-gradient-to-b ${grad}`}
           initial={{ height: 0 }}
           animate={{ height: lit ? "100%" : "0%" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         />
-        {flowing && (
-          <span
-            aria-hidden
-            className="absolute inset-0 animate-trail-flow bg-[length:100%_200%] bg-gradient-to-b from-transparent via-white/90 to-transparent"
-          />
-        )}
       </div>
     </div>
   );
@@ -237,22 +257,22 @@ export function AgentCanvas({
 }) {
   return (
     <section className="glass-strong relative flex h-full flex-col overflow-hidden rounded-2xl p-5">
-      {/* Animated / static grid backdrop (requirement 1c). */}
+      {/* Animated grid + eerie fog backdrop */}
       <div
         className={`pointer-events-none absolute inset-0 bg-grid-fade bg-grid opacity-40 ${
           gridAnimated ? "animate-grid-drift" : ""
         }`}
       />
-      {/* Radial glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-neon-purple/10 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-fog animate-fog-drift opacity-70" />
 
       <header className="relative z-10 mb-5 flex items-center justify-between">
         <div>
-          <h2 className="font-mono text-sm font-semibold uppercase tracking-widest text-slate-200">
-            Execution Canvas
+          <h2 className="flex items-center gap-2 font-mono text-sm font-semibold uppercase tracking-widest text-bone/90">
+            <Skull className="h-4 w-4 text-blood" aria-hidden />
+            Haunted Node Graph
           </h2>
           <p className="font-mono text-[11px] text-slate-500">
-            Live agent workflow — nodes illuminate as the ritual progresses.
+            Nodes bleed red when a demon is found · turn spectral when cleansed.
           </p>
         </div>
       </header>
@@ -262,17 +282,19 @@ export function AgentCanvas({
           const status = nodes[stage.id];
           const isLast = i === WORKFLOW_STAGES.length - 1;
           const nextStage = isLast ? null : WORKFLOW_STAGES[i + 1];
-          // The trail "flows" when the node to its right is the active one.
+          const nextStatus = nextStage ? nodes[nextStage.id] : "pending";
+          const doneLike = status === "cleansed" || status === "haunted";
           const flowing =
             nextStage !== null &&
             activeStage === nextStage.id &&
-            status === "done";
+            doneLike;
+          const haunted = status === "haunted" || nextStatus === "haunted";
           return (
             <div
               key={stage.id}
               className="flex flex-col items-stretch lg:flex-1 lg:flex-row lg:items-center"
             >
-              <StageNode
+              <GhostNode
                 index={i}
                 stageId={stage.id}
                 label={stage.label}
@@ -280,7 +302,11 @@ export function AgentCanvas({
                 status={status}
               />
               {!isLast && (
-                <Connector filled={status === "done"} flowing={flowing} />
+                <Connector
+                  filled={doneLike}
+                  flowing={flowing}
+                  haunted={haunted}
+                />
               )}
             </div>
           );

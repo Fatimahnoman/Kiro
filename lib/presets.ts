@@ -1,49 +1,83 @@
 import type { LucideIcon } from "lucide-react";
-import { Bug, Ghost, Rocket, ScanLine, Wand2 } from "lucide-react";
+import { Bug, FlaskConical, Ghost, Skull, Wand2 } from "lucide-react";
 
-/** Preset workflow directives surfaced in the left control panel. */
-export interface WorkflowPreset {
+/** A "Ritual Spell" — a cursed code snippet the exorcist can cleanse. */
+export interface RitualSpell {
   id: string;
   label: string;
-  directive: string;
+  /** The cursed code loaded into the editor when selected. */
+  code: string;
   icon: LucideIcon;
-  accent: "blue" | "purple" | "green";
+  accent: "blood" | "haunt" | "spectral";
 }
 
-export const WORKFLOW_PRESETS: WorkflowPreset[] = [
+export const RITUAL_SPELLS: RitualSpell[] = [
   {
-    id: "exorcism",
-    label: "Agent Exorcism",
-    directive: "Purge legacy spaghetti and regenerate a clean, typed module.",
+    id: "loose-equality",
+    label: "Banish Loose Equality",
     icon: Ghost,
-    accent: "purple",
+    accent: "haunt",
+    code: `function isAdmin(user) {
+  if (user.role == "admin") {
+    return true
+  }
+  return false
+}`,
   },
   {
-    id: "scaffold",
-    label: "Scaffold Feature",
-    directive: "Scaffold a new feature slice with route, component, and tests.",
-    icon: Rocket,
-    accent: "blue",
+    id: "assignment-demon",
+    label: "Exorcise the = Demon",
+    icon: Skull,
+    accent: "blood",
+    code: `function findUser(id) {
+  var result = null
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].id = id) {
+      result = users[i]
+    }
+  }
+  return result
+}`,
   },
   {
-    id: "bughunt",
-    label: "Bug Hunt",
-    directive: "Trace the failing path and emit a minimal, verified fix.",
-    icon: Bug,
-    accent: "green",
-  },
-  {
-    id: "audit",
-    label: "Context Audit",
-    directive: "Scan the repository graph and report drift from steering rules.",
-    icon: ScanLine,
-    accent: "blue",
-  },
-  {
-    id: "refactor",
-    label: "Refactor Spell",
-    directive: "Refactor the selected surface for clarity without behavior change.",
+    id: "var-poltergeist",
+    label: "Dispel var Poltergeist",
     icon: Wand2,
-    accent: "purple",
+    accent: "spectral",
+    code: `var total = 0
+for (var i = 0; i < items.length; i++) {
+  var price = items[i].price
+  total = total + price
+}`,
+  },
+  {
+    id: "console-haunt",
+    label: "Silence console Spirits",
+    icon: Bug,
+    accent: "haunt",
+    code: `function checkout(cart) {
+  console.log("checking out", cart)
+  var sum = cart.reduce((a, b) => a + b.price, 0)
+  console.debug("sum", sum)
+  return sum
+}`,
+  },
+  {
+    id: "cursed-sample",
+    label: "The Fully Cursed Snippet",
+    icon: FlaskConical,
+    accent: "blood",
+    code: `function getUser(id) {
+  var result = null
+  if (id == null) {
+    console.log("no id")
+  }
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].id = id) {
+      result == users[i]
+    }
+  }
+  return result
+}`,
   },
 ];

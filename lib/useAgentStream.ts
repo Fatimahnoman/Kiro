@@ -18,6 +18,7 @@ export interface AgentStreamState {
   logs: AgentEvent[];
   nodes: NodeStatusMap;
   activeStage: StageId | null;
+  bugCount: number;
   error: string | null;
 }
 
@@ -35,6 +36,7 @@ const INITIAL: AgentStreamState = {
   logs: [],
   nodes: initialNodes(),
   activeStage: null,
+  bugCount: 0,
   error: null,
 };
 
@@ -59,17 +61,17 @@ export function useAgentStream() {
   }, [close]);
 
   const run = useCallback(
-    (directive: string) => {
+    (code: string) => {
       // Always start from a clean slate so re-runs are safe.
       close();
       setState({
         ...INITIAL,
         nodes: initialNodes(),
         running: true,
-        phase: "thinking",
+        phase: "summoning",
       });
 
-      const url = `/api/agent/stream?directive=${encodeURIComponent(directive)}`;
+      const url = `/api/agent/stream?code=${encodeURIComponent(code)}`;
       const es = new EventSource(url);
       sourceRef.current = es;
 
@@ -87,7 +89,9 @@ export function useAgentStream() {
             nodes[data.stage] = data.nodeStatus;
           }
           const activeStage =
-            data.nodeStatus === "active" ? data.stage : prev.activeStage;
+            data.nodeStatus === "active" || data.nodeStatus === "haunted"
+              ? data.stage
+              : prev.activeStage;
 
           const done = data.phase === "complete";
 
@@ -98,6 +102,7 @@ export function useAgentStream() {
             logs: [...prev.logs, data],
             nodes,
             activeStage: done ? null : activeStage,
+            bugCount: data.bugCount,
             running: !done,
           };
         });
@@ -108,14 +113,12 @@ export function useAgentStream() {
       });
 
       es.onerror = () => {
-        // EventSource auto-reconnects by default; for a scripted finite stream
-        // we treat an error after close as benign, but surface a live failure.
         setState((prev) => {
           if (prev.phase === "complete" || !prev.running) return prev;
           return {
             ...prev,
             running: false,
-            error: "Stream interrupted — connection to agent core lost.",
+            error: "Séance interrupted — the connection to the spirit realm was severed.",
           };
         });
         close();

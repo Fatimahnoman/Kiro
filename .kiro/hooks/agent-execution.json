@@ -1,103 +1,75 @@
 {
   "version": "v1",
-  "name": "NecroCode Agent Execution Hooks",
-  "description": "Trigger hooks that fire on visual agent stage transitions in the NecroCode Visual Agent Studio. These map 1:1 to the WORKFLOW_STAGES in lib/types.ts and drive the canvas node highlighting, neon trails, and terminal SFX. Each hook declares the target stage, the agent phase it corresponds to, and the visual/audio effect to apply.",
+  "name": "NecroCode Code Exorcist — Stage Hooks",
+  "description": "Trigger hooks that fire on each visual exorcism stage transition in the Haunted Node Graph. Mapped 1:1 to WORKFLOW_STAGES in lib/types.ts. Each hook drives node highlighting (blood-red when haunted, spectral when cleansed) and the séance SFX.",
   "stateMachine": {
-    "states": ["idle", "scanning", "processing", "complete"],
+    "states": ["idle", "summoning", "scanning", "exorcising", "complete"],
     "initial": "idle",
     "transitions": [
-      { "from": "idle", "to": "scanning", "on": "run-start" },
-      { "from": "scanning", "to": "processing", "on": "context-ready" },
-      { "from": "processing", "to": "complete", "on": "code-emitted" }
+      { "from": "idle", "to": "summoning", "on": "run-start" },
+      { "from": "summoning", "to": "scanning", "on": "code-parsed" },
+      { "from": "scanning", "to": "exorcising", "on": "scan-complete" },
+      { "from": "exorcising", "to": "complete", "on": "code-cleansed" }
     ]
   },
   "hooks": [
     {
       "name": "on-run-start",
       "trigger": "PreTaskExec",
-      "description": "Fires when the user clicks 'Run Agent Exorcism'. Resets the canvas to Idle and opens the SSE stream.",
+      "description": "Fires when the user clicks 'Run Bug Exorcism'. Lights the candles and resets the haunted node graph.",
       "stage": null,
-      "phase": "thinking",
-      "uiState": "idle",
-      "action": {
-        "type": "visual",
-        "effect": "reset-canvas",
-        "sfx": "click"
-      }
+      "phase": "summoning",
+      "uiState": "summoning",
+      "action": { "type": "visual", "effect": "reset-canvas", "sfx": "click" }
     },
     {
-      "name": "on-input-parsing",
+      "name": "on-input-code",
       "trigger": "PostToolUse",
-      "matcher": "input_parsing",
-      "description": "Highlights the Input Parsing node with a pulsing border and emits a node-activate blip.",
-      "stage": "input_parsing",
-      "phase": "thinking",
+      "matcher": "input_code",
+      "description": "Highlights the Input Code node while the cursed snippet is parsed.",
+      "stage": "input_code",
+      "phase": "summoning",
+      "uiState": "summoning",
+      "action": { "type": "visual", "effect": "highlight-node", "glow": "spectral", "sfx": "node" }
+    },
+    {
+      "name": "on-glitch-scanner",
+      "trigger": "PostToolUse",
+      "matcher": "glitch_scanner",
+      "description": "The Glitch Scanner hunts for demons. On detection the node pulses blood-red (haunted).",
+      "stage": "glitch_scanner",
+      "phase": "scanning",
       "uiState": "scanning",
-      "action": {
-        "type": "visual",
-        "effect": "pulse-border",
-        "glow": "blue",
-        "sfx": "node"
-      }
+      "action": { "type": "visual", "effect": "blood-pulse", "glow": "blood", "sfx": "haunt" }
     },
     {
-      "name": "on-context-scanning",
+      "name": "on-exorcism-reasoning",
       "trigger": "PostToolUse",
-      "matcher": "context_scanning",
-      "description": "Highlights the Context Scanning node and streams a neon trail from the previous node (Scanning state).",
-      "stage": "context_scanning",
-      "phase": "tool_call",
-      "uiState": "scanning",
-      "action": {
-        "type": "visual",
-        "effect": "neon-trail",
-        "glow": "blue",
-        "sfx": "tool"
-      }
+      "matcher": "exorcism_reasoning",
+      "description": "Reasons about each haunting and banishes it; a neon trail flows toward the output node.",
+      "stage": "exorcism_reasoning",
+      "phase": "exorcising",
+      "uiState": "exorcising",
+      "action": { "type": "visual", "effect": "neon-trail", "glow": "haunt", "sfx": "node" }
     },
     {
-      "name": "on-kiro-hook-trigger",
+      "name": "on-clean-output",
       "trigger": "PostToolUse",
-      "matcher": "kiro_hook_trigger",
-      "description": "Highlights the Kiro Hook Trigger node and streams a neon trail to the next node (Processing state).",
-      "stage": "kiro_hook_trigger",
-      "phase": "executing",
-      "uiState": "processing",
-      "action": {
-        "type": "visual",
-        "effect": "neon-trail",
-        "glow": "purple",
-        "sfx": "node"
-      }
-    },
-    {
-      "name": "on-code-generation",
-      "trigger": "PostToolUse",
-      "matcher": "code_generation",
-      "description": "Highlights the Code Generation node while synthesized code streams into the terminal.",
-      "stage": "code_generation",
-      "phase": "executing",
-      "uiState": "processing",
-      "action": {
-        "type": "visual",
-        "effect": "pulse-border",
-        "glow": "green",
-        "sfx": "success"
-      }
+      "matcher": "clean_output",
+      "description": "Streams the purified code; the node turns spectral green (cleansed).",
+      "stage": "clean_output",
+      "phase": "exorcising",
+      "uiState": "exorcising",
+      "action": { "type": "visual", "effect": "cleanse-pulse", "glow": "ecto", "sfx": "success" }
     },
     {
       "name": "on-run-complete",
       "trigger": "PostTaskExec",
-      "description": "Fires when the workflow reaches Complete. Marks all nodes done and plays the completion chord.",
+      "description": "Fires when the exorcism reaches Complete. All demons banished, the crypt rests.",
       "stage": null,
       "phase": "complete",
       "uiState": "complete",
-      "action": {
-        "type": "visual",
-        "effect": "complete-pulse",
-        "glow": "green",
-        "sfx": "complete"
-      }
+      "action": { "type": "visual", "effect": "complete-pulse", "glow": "ecto", "sfx": "complete" }
     }
   ]
 }

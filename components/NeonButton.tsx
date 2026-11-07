@@ -4,36 +4,64 @@ import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Loader2 } from "lucide-react";
 
+type Accent =
+  | "blood"
+  | "haunt"
+  | "spectral"
+  // legacy aliases (kept so older callers still compile)
+  | "blue"
+  | "purple"
+  | "green";
+
 interface NeonButtonProps {
   label: string;
   icon?: LucideIcon;
   onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
-  accent?: "blue" | "purple" | "green";
+  accent?: Accent;
 }
 
 const ACCENT: Record<
-  NonNullable<NeonButtonProps["accent"]>,
+  Accent,
   { ring: string; glow: string; text: string; grad: string }
 > = {
+  blood: {
+    ring: "border-blood/60",
+    glow: "shadow-glow-blood",
+    text: "text-blood",
+    grad: "from-blood/25 to-haunt/10",
+  },
+  haunt: {
+    ring: "border-haunt/60",
+    glow: "shadow-glow-haunt",
+    text: "text-haunt",
+    grad: "from-haunt/25 to-spectral/10",
+  },
+  spectral: {
+    ring: "border-spectral/60",
+    glow: "shadow-glow-spectral",
+    text: "text-spectral",
+    grad: "from-spectral/25 to-haunt/10",
+  },
+  // legacy aliases → map onto the haunted palette
   blue: {
-    ring: "border-neon-blue/60",
-    glow: "shadow-glow-blue",
-    text: "text-neon-blue",
-    grad: "from-neon-blue/20 to-neon-purple/10",
+    ring: "border-spectral/60",
+    glow: "shadow-glow-spectral",
+    text: "text-spectral",
+    grad: "from-spectral/25 to-haunt/10",
   },
   purple: {
-    ring: "border-neon-purple/60",
-    glow: "shadow-glow-purple",
-    text: "text-neon-purple",
-    grad: "from-neon-purple/20 to-neon-blue/10",
+    ring: "border-haunt/60",
+    glow: "shadow-glow-haunt",
+    text: "text-haunt",
+    grad: "from-haunt/25 to-spectral/10",
   },
   green: {
-    ring: "border-neon-green/60",
-    glow: "shadow-glow-green",
-    text: "text-neon-green",
-    grad: "from-neon-green/20 to-neon-blue/10",
+    ring: "border-ecto/60",
+    glow: "shadow-glow-ecto",
+    text: "text-ecto",
+    grad: "from-ecto/25 to-spectral/10",
   },
 };
 
@@ -43,7 +71,7 @@ export function NeonButton({
   onClick,
   disabled = false,
   loading = false,
-  accent = "blue",
+  accent = "blood",
 }: NeonButtonProps) {
   const a = ACCENT[accent];
   const isDisabled = disabled || loading;
@@ -57,7 +85,7 @@ export function NeonButton({
       whileTap={isDisabled ? undefined : { scale: 0.97 }}
       aria-busy={loading}
       className={[
-        "group relative flex w-full items-center justify-center gap-2.5",
+        "group relative flex w-full items-center justify-center gap-2.5 overflow-hidden",
         "rounded-xl border px-5 py-3.5 font-mono text-sm font-semibold uppercase tracking-widest",
         "bg-gradient-to-r transition-all duration-300",
         a.ring,

@@ -1,109 +1,133 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cpu, Ghost, RotateCcw, Sparkles } from "lucide-react";
+import { FlaskConical, RotateCcw, Skull, Sparkles } from "lucide-react";
 import { NeonButton } from "@/components/NeonButton";
 import { StatusPill } from "@/components/StatusPill";
-import { WORKFLOW_PRESETS } from "@/lib/presets";
+import { RITUAL_SPELLS } from "@/lib/presets";
 import type { AgentPhase } from "@/lib/types";
 
 interface ControlPanelProps {
-  directive: string;
-  onDirectiveChange: (value: string) => void;
-  onSelectPreset: (directive: string) => void;
-  selectedPresetId: string | null;
+  code: string;
+  onCodeChange: (value: string) => void;
+  onSelectSpell: (code: string) => void;
+  selectedSpellId: string | null;
   onRun: () => void;
   onReset: () => void;
   running: boolean;
   phase: AgentPhase;
   progress: number;
+  bugCount: number;
 }
 
 const ACCENT_TEXT = {
-  blue: "text-neon-blue",
-  purple: "text-neon-purple",
-  green: "text-neon-green",
+  blood: "text-blood",
+  haunt: "text-haunt",
+  spectral: "text-spectral",
+} as const;
+
+const ACCENT_ACTIVE = {
+  blood: "border-blood/60 bg-blood/10 shadow-glow-blood",
+  haunt: "border-haunt/60 bg-haunt/10 shadow-glow-haunt",
+  spectral: "border-spectral/60 bg-spectral/10 shadow-glow-spectral",
 } as const;
 
 export function ControlPanel({
-  directive,
-  onDirectiveChange,
-  onSelectPreset,
-  selectedPresetId,
+  code,
+  onCodeChange,
+  onSelectSpell,
+  selectedSpellId,
   onRun,
   onReset,
   running,
   phase,
   progress,
+  bugCount,
 }: ControlPanelProps) {
+  const lineCount = code.length === 0 ? 1 : code.split("\n").length;
+
   return (
-    <aside className="glass-strong flex h-full flex-col gap-5 rounded-2xl p-5">
+    <aside className="glass-strong flex h-full flex-col gap-4 rounded-2xl p-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-neon-blue/40 bg-neon-blue/10 shadow-glow-blue">
-          <Ghost className="h-5 w-5 text-neon-blue" aria-hidden />
+        <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-blood/40 bg-blood/10 shadow-glow-blood">
+          <Skull className="h-5 w-5 text-blood" aria-hidden />
         </div>
         <div>
-          <h1 className="font-mono text-lg font-bold tracking-tight text-glow-blue">
-            Necro<span className="text-neon-purple text-glow-purple">Code</span>
+          <h1 className="font-mono text-lg font-bold tracking-tight">
+            <span className="text-blood text-glow-blood">Necro</span>
+            <span className="text-haunt text-glow-haunt">Code</span>
           </h1>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-slate-400">
-            Agent Control Panel
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-haunt/70">
+            Ritual Spells &amp; Bug Exorcism
           </p>
         </div>
       </div>
 
-      <StatusPill phase={phase} />
+      <StatusPill phase={phase} bugCount={bugCount} />
 
-      {/* Directive input */}
+      {/* Code editor window */}
       <div className="space-y-2">
         <label
-          htmlFor="directive"
-          className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-slate-400"
+          htmlFor="code"
+          className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-spectral/80"
         >
-          <Sparkles className="h-3.5 w-3.5 text-neon-purple" aria-hidden />
-          Directive
+          <Sparkles className="h-3.5 w-3.5 text-haunt" aria-hidden />
+          Cursed Code
         </label>
-        <textarea
-          id="directive"
-          value={directive}
-          onChange={(e) => onDirectiveChange(e.target.value)}
-          rows={3}
-          placeholder="Describe the ritual the agent should perform…"
-          className="w-full resize-none rounded-xl border border-neon-blue/20 bg-black/40 p-3 font-mono text-sm text-slate-200 placeholder:text-slate-600 outline-none transition focus:border-neon-blue/60 focus:shadow-glow-blue"
-        />
+
+        <div className="overflow-hidden rounded-xl border border-haunt/25 bg-black/60 shadow-glow-haunt">
+          {/* Editor title bar */}
+          <div className="flex items-center gap-1.5 border-b border-white/5 bg-black/50 px-3 py-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-blood/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-haunt/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-spectral/80" />
+            <span className="ml-2 font-mono text-[10px] uppercase tracking-wider text-slate-500">
+              cursed.ts · {lineCount} ln
+            </span>
+          </div>
+          <textarea
+            id="code"
+            value={code}
+            onChange={(e) => onCodeChange(e.target.value)}
+            spellCheck={false}
+            rows={9}
+            placeholder={"// paste JS/TS here, or pick a ritual spell below\nif (x == 1) var y = 1"}
+            className="h-44 w-full resize-none bg-transparent p-3 font-mono text-[12px] leading-relaxed text-ecto/90 placeholder:text-slate-700 outline-none"
+          />
+        </div>
       </div>
 
-      {/* Presets */}
-      <div className="space-y-2">
-        <p className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-slate-400">
-          <Cpu className="h-3.5 w-3.5 text-neon-blue" aria-hidden />
-          Preset Workflows
+      {/* Ritual spells */}
+      <div className="min-h-0 flex-1 space-y-2 overflow-hidden">
+        <p className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-spectral/80">
+          <FlaskConical className="h-3.5 w-3.5 text-spectral" aria-hidden />
+          Ritual Spells
         </p>
-        <div className="flex flex-col gap-2 overflow-y-auto pr-1">
-          {WORKFLOW_PRESETS.map((preset) => {
-            const Icon = preset.icon;
-            const active = preset.id === selectedPresetId;
+        <div className="flex max-h-full flex-col gap-2 overflow-y-auto pr-1">
+          {RITUAL_SPELLS.map((spell) => {
+            const Icon = spell.icon;
+            const active = spell.id === selectedSpellId;
             return (
               <motion.button
-                key={preset.id}
+                key={spell.id}
                 type="button"
-                onClick={() => onSelectPreset(preset.directive)}
+                onClick={() => onSelectSpell(spell.code)}
                 whileHover={{ x: 3 }}
                 whileTap={{ scale: 0.98 }}
                 className={[
                   "group flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all",
                   active
-                    ? "border-neon-blue/60 bg-neon-blue/10 shadow-glow-blue"
-                    : "border-white/5 bg-black/20 hover:border-neon-blue/30 hover:bg-black/40",
+                    ? ACCENT_ACTIVE[spell.accent]
+                    : "border-white/5 bg-black/30 hover:border-haunt/30 hover:bg-black/50",
                 ].join(" ")}
               >
                 <Icon
-                  className={`h-4 w-4 shrink-0 ${ACCENT_TEXT[preset.accent]}`}
+                  className={`h-4 w-4 shrink-0 ${ACCENT_TEXT[spell.accent]}`}
                   aria-hidden
                 />
-                <span className="font-mono text-xs text-slate-200">
-                  {preset.label}
+                <span className="font-mono text-xs text-bone/90">
+                  {spell.label}
                 </span>
               </motion.button>
             );
@@ -112,16 +136,15 @@ export function ControlPanel({
       </div>
 
       {/* Actions */}
-      <div className="mt-auto space-y-3">
-        {/* Progress bar */}
+      <div className="space-y-3">
         <div className="space-y-1">
           <div className="flex justify-between font-mono text-[10px] uppercase tracking-wider text-slate-500">
-            <span>Progress</span>
-            <span className="text-neon-blue">{progress}%</span>
+            <span>Exorcism Progress</span>
+            <span className="text-spectral">{progress}%</span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/50">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/60">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-neon-blue via-neon-purple to-neon-green"
+              className="h-full rounded-full bg-gradient-to-r from-blood via-haunt to-spectral"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ ease: "easeOut", duration: 0.4 }}
@@ -130,20 +153,20 @@ export function ControlPanel({
         </div>
 
         <NeonButton
-          label={running ? "Exorcising…" : "Run Agent Exorcism"}
-          icon={Ghost}
+          label={running ? "Exorcising…" : "Run Bug Exorcism"}
+          icon={Skull}
           onClick={onRun}
           loading={running}
-          accent="purple"
+          accent="blood"
         />
         <button
           type="button"
           onClick={onReset}
           disabled={running}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-2 font-mono text-xs uppercase tracking-widest text-slate-400 transition hover:border-neon-blue/30 hover:text-neon-blue disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-black/30 px-4 py-2 font-mono text-xs uppercase tracking-widest text-slate-400 transition hover:border-haunt/30 hover:text-haunt disabled:cursor-not-allowed disabled:opacity-40"
         >
           <RotateCcw className="h-3.5 w-3.5" aria-hidden />
-          Reset
+          Reset Ritual
         </button>
       </div>
     </aside>

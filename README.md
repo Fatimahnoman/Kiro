@@ -1,6 +1,6 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗ -->
 <!-- ║                        N E C R O C O D E                             ║ -->
-<!-- ║              Cyberpunk AI Visual Agent Studio · Kiroween 2026        ║ -->
+<!-- ║         Haunted Cyber-Gothic AI Code Exorcist · Kiroween 2026       ║ -->
 <!-- ╚══════════════════════════════════════════════════════════════════════╝ -->
 
 <div align="center">
@@ -16,9 +16,9 @@
 
 # 🕯️ NecroCode
 
-### ⚡ Cyberpunk **AI Visual Agent Studio** ⚡
+### 💀 Haunted Cyber-Gothic **AI Code Exorcist** 💀
 
-**`» summon the machine spirit · watch it reason · exorcise the legacy code «`**
+**`» paste the cursed code · hunt the demons · banish the bugs «`**
 
 <br/>
 
@@ -26,9 +26,9 @@
 ![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-![Built with Kiro](https://img.shields.io/badge/Built_with-Kiro-A855F7?style=for-the-badge)
-![Vercel](https://img.shields.io/badge/Vercel-ready-00F0FF?style=for-the-badge&logo=vercel&logoColor=black)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-9333EA?style=for-the-badge&logo=framer&logoColor=white)
+![Built with Kiro](https://img.shields.io/badge/Built_with-Kiro-9333EA?style=for-the-badge)
+![Vercel](https://img.shields.io/badge/Vercel-ready-06B6D4?style=for-the-badge&logo=vercel&logoColor=black)
 
 <br/>
 
@@ -53,20 +53,23 @@
 
 > ### 🔮 _What is NecroCode?_
 >
-> A neon, dark-themed **HUD** that visualizes an AI agent reasoning through a
-> live workflow — streaming its thoughts into a translucent cyberpunk terminal
-> while glowing nodes illuminate across an animated execution canvas.
+> A haunted cyber-gothic **HUD** where you paste "cursed" JS/TS and an AI
+> **exorcist** hunts the bugs. Ghostly nodes **bleed blood-red** when a demon is
+> found and turn **spectral** once cleansed — while a séance terminal streams the
+> exorcism and emits the purified code.
 
 </div>
 
 ```
-   🧩 Input Parsing  ─▶  🔍 Context Scanning  ─▶  🪝 Kiro Hook Trigger  ─▶  💻 Code Generation
+   💻 Input Code  ─▶  🔍 Glitch Scanner  ─▶  💀 Exorcism Reasoning  ─▶  ✨ Clean Code Output
 ```
 
-One click of **`Run Agent Exorcism`** opens a real-time **Server-Sent Events**
-stream: borders pulse, neon trails flow between nodes, synthesized **Web Audio**
-blips fire on each transition, and generated code streams in line-by-line — all
-with **zero layout shift** and **zero external setup**. ✨
+One click of **`Run Bug Exorcism`** opens a real-time **Server-Sent Events**
+stream backed by a **real static analyzer** (`lib/exorcist.ts`): it detects
+genuine bugs — loose equality, `var`, assignment-in-condition, stray
+`console.log`, unbalanced brackets — pulses the haunted nodes blood-red, streams
+the reasoning, and emits fixed code line-by-line, all with **zero layout shift**
+and **zero external setup**. 🩸
 
 ---
 
@@ -96,40 +99,40 @@ with **zero layout shift** and **zero external setup**. ✨
   <tr>
     <td width="33%" valign="top">
 
-### 🎛️ Multi-pane HUD
-Control panel · execution canvas · streaming terminal. Fully responsive, collapses gracefully on mobile.
+### 🩸 Real Bug Exorcism
+A genuine static analyzer detects real JS/TS bugs & returns fixed code — no LLM, no fakery.
 
 </td>
     <td width="33%" valign="top">
 
 ### 📡 Real-time SSE
-Agent reasoning streamed live as `idle · thinking · tool_call · executing · complete`.
+Exorcism reasoning streamed live as `idle · summoning · scanning · exorcising · complete`.
 
 </td>
     <td width="33%" valign="top">
 
-### 💫 Micro-interactions
-Pulsing glow borders, flowing neon trails, animated grid backdrop, CRT scanline overlay.
+### 👻 Haunted Node Graph
+Floating skull/ghost nodes **bleed red** on a bug & turn **spectral** when cleansed.
 
 </td>
   </tr>
   <tr>
     <td width="33%" valign="top">
 
-### 🔊 Cyber Sound FX
-Synthesized Web Audio blips per transition — **no audio assets**, fully toggleable.
+### 🔊 Séance Sound FX
+Synthesized Web Audio stings & blips per transition — **no audio assets**, fully toggleable.
 
 </td>
     <td width="33%" valign="top">
 
 ### 📋 Quick-copy
-Copy generated code from the terminal with a glowing **"Copied!"** badge.
+Copy the cleansed code from the séance terminal with a glowing **"Copied!"** badge.
 
 </td>
     <td width="33%" valign="top">
 
-### 🎨 Neon Glass Design
-Electric blue, neon purple & emerald accents on a deep navy/black glassmorphic base.
+### 🎨 Cyber-Gothic Design
+Blood crimson, haunted purple & spectral cyan on a pitch-black glassmorphic base + fog.
 
 </td>
   </tr>
@@ -149,7 +152,7 @@ No API keys, no secrets, no config. Deploys to Vercel as-is.
     <td width="33%" valign="top">
 
 ### 🧘 Zero Layout Shift
-Every state transition `Idle → Complete` is buttery smooth and stable.
+Every state transition `Dormant → Cleansed` is buttery smooth and stable.
 
 </td>
   </tr>
@@ -168,55 +171,55 @@ Every state transition `Idle → Complete` is buttery smooth and stable.
 │                          NECROCODE  ·  HUD DASHBOARD                       │
 │                                                                            │
 │  ┌───────────────┐    ┌──────────────────────────┐    ┌────────────────┐  │
-│  │ CONTROL PANEL │    │     EXECUTION CANVAS      │    │   TERMINAL     │  │
-│  │ directive +   │    │  ⬡──▶⬡──▶⬡──▶⬡            │    │ live SSE logs  │  │
-│  │ presets + run │    │  pulsing borders & trails │    │ + code + copy  │  │
+│  │ RITUAL SPELLS │    │    HAUNTED NODE GRAPH     │    │ SÉANCE TERMINAL│  │
+│  │ code editor + │    │  💀──▶💀──▶💀──▶💀         │    │ red/purple log │  │
+│  │ cursed spells │    │  blood pulse · spectral   │    │ + clean code   │  │
 │  └───────┬───────┘    └────────────▲─────────────┘    └───────▲────────┘  │
 │          │                         │                          │           │
 │          └──────────┬──────────────┴──────────────────────────┘           │
 │                     │  useAgentStream()  (EventSource → UI state)          │
 └─────────────────────┼──────────────────────────────────────────────────────┘
-                      │  GET /api/agent/stream?directive=…
+                      │  GET /api/agent/stream?code=…
               ┌───────▼────────────────────────────────┐
-              │  SSE Route Handler (text/event-stream)  │
-              │  emits AgentEvent[] reasoning steps      │
+              │  SSE Route + lib/exorcist.ts analyzer   │
+              │  streams REAL findings + fixed code      │
               └─────────────────────────────────────────┘
 ```
 
 ### 🧠 Kiro Specs — _the blueprint_
 
-📋 [`.kiro/specs/visual-agent-studio.md`](.kiro/specs/visual-agent-studio.md)
-formalizes the feature **before a line of UI was written**: the five agent
-**phases**, the four workflow **stages**, the exact **SSE event contract**
-(`AgentEvent`), and the **acceptance criteria**. The spec links to the shared
-types via Kiro's `#[[file:…]]` syntax, so the contract stays a single source of
-truth across server **and** client.
+📋 [`.kiro/specs/code-exorcist.md`](.kiro/specs/code-exorcist.md)
+formalizes the feature **before a line of UI was written**: the five exorcist
+**phases**, the four exorcism **stages**, the detected **hauntings** table, the
+exact **SSE event contract** (`AgentEvent`), and the **acceptance criteria**. The
+spec links to the shared types & analyzer via Kiro's `#[[file:…]]` syntax, so
+the contract stays a single source of truth across server **and** client.
 
 ### 🧭 Steering Docs — _the guardrails_
 
-🧭 [`.kiro/steering/project-rules.md`](.kiro/steering/project-rules.md) encodes
-the **authoritative tech stack**, the **design system tokens**, the **HUD layout
-contract**, and the **non-functional requirements** (responsive, accessible,
-zero-error build). Injected into every AI interaction, it keeps generated code
-consistent, typed, and deploy-ready.
+🧭 [`.kiro/steering/horror-rules.md`](.kiro/steering/horror-rules.md) encodes the
+**haunted cyber-gothic theme**: the authoritative **palette** (blood / haunt /
+spectral / ecto), the **visual language** (fog, runes, CRT, floating ghosts),
+the **3-pane layout contract**, and the **non-functional requirements**. Injected
+into every AI interaction, it keeps the horror theme consistent and the build
+zero-error.
 
 ### 🪝 Agent Hooks — _the triggers_
 
 🪝 [`.kiro/hooks/agent-execution.json`](.kiro/hooks/agent-execution.json) defines
-trigger hooks for each **visual stage transition**, mapped 1:1 to
-`WORKFLOW_STAGES`. Each hook declares its target stage, agent phase, UI state
-(`idle → scanning → processing → complete`), and visual + audio effect
-(`pulse-border`, `neon-trail`, `complete-pulse` + synthesized SFX). The
-**Kiro Hook Trigger** node on the canvas is a live visualization of this concept.
+trigger hooks for each **exorcism stage transition**, mapped 1:1 to
+`WORKFLOW_STAGES`. Each hook declares its target stage, phase, UI state
+(`summoning → scanning → exorcising → complete`), and visual + audio effect
+(`blood-pulse`, `neon-trail`, `cleanse-pulse` + synthesized SFX).
 
 ### 🔁 Runtime Flow
 
 | # | Step |
 | :---: | --- |
-| 1️⃣ | User enters a **directive** and clicks **Run Agent Exorcism**. |
-| 2️⃣ | `lib/useAgentStream.ts` opens an `EventSource` to `GET /api/agent/stream?directive=…`. |
-| 3️⃣ | The [SSE route handler](app/api/agent/stream/route.ts) streams `AgentEvent`s as `text/event-stream`. |
-| 4️⃣ | Each event advances the progress bar, flips a node `pending → active → done`, flows a neon trail, appends a terminal line, and fires a Web Audio blip. |
+| 1️⃣ | User pastes cursed code (or picks a **ritual spell**) and clicks **Run Bug Exorcism**. |
+| 2️⃣ | `lib/useAgentStream.ts` opens an `EventSource` to `GET /api/agent/stream?code=…`. |
+| 3️⃣ | The [SSE route](app/api/agent/stream/route.ts) runs [`lib/exorcist.ts`](lib/exorcist.ts) on the snippet and streams **real** `AgentEvent`s. |
+| 4️⃣ | Each event advances progress, flips a node `active → haunted → cleansed`, flows a trail, appends a séance line, and fires a Web Audio sting. |
 
 ---
 
@@ -226,11 +229,12 @@ trigger hooks for each **visual stage transition**, mapped 1:1 to
 | :---: | --- | --- | --- |
 | ⚛️ | **Framework** | [Next.js 15](https://nextjs.org) (App Router) | Server components + route handlers for native SSE. |
 | 🟦 | **Language** | TypeScript (`strict: true`) | Zero `any`, fully typed event contract. |
-| 🎨 | **Styling** | [Tailwind CSS 3](https://tailwindcss.com) | Design tokens + neon/glass utilities. |
-| 💫 | **Animation** | [Framer Motion 11](https://www.framer.com/motion/) | Node pulses, trail flows, layout-stable transitions. |
+| 🎨 | **Styling** | [Tailwind CSS 3](https://tailwindcss.com) | Haunted palette + glass/fog/rune utilities. |
+| 💫 | **Animation** | [Framer Motion 11](https://www.framer.com/motion/) | Blood pulses, floating ghosts, trail flows. |
 | 🎯 | **Icons** | [lucide-react](https://lucide.dev) | Single, consistent icon source. |
-| 📡 | **Streaming** | **Server-Sent Events** | Real-time agent reasoning over a Node.js route. |
-| 🔊 | **Audio** | **Web Audio API** | Synthesized SFX — no audio files shipped. |
+| 🩸 | **Analyzer** | **`lib/exorcist.ts`** (zero-dep) | Real static bug detection + code fixing. |
+| 📡 | **Streaming** | **Server-Sent Events** | Real-time exorcism reasoning over a Node.js route. |
+| 🔊 | **Audio** | **Web Audio API** | Synthesized séance SFX — no audio files shipped. |
 | ☁️ | **Deploy** | [Vercel](https://vercel.com) | Zero-config, auto-detected Next.js. |
 
 ---
@@ -263,12 +267,12 @@ That's it — **no `.env`, no API keys, no setup.** 🎉
 
 | Action | What happens |
 | --- | --- |
-| ✍️ **Enter a directive** | Type a custom directive, or pick a **preset workflow** from the left panel. |
-| 🕯️ **Run Agent Exorcism** | Launches the live SSE run — nodes ignite, trails flow, terminal streams. |
-| 🔊 **Cyber Sound FX** | Toggle synthesized audio blips on each transition _(off by default)_. |
-| 📺 **Scanlines** | Toggle the CRT scanline overlay on the terminal. |
-| ⚡ **Grid FX** | Toggle the animated cyberpunk grid backdrop. |
-| 📋 **Copy** | Copy the generated code — watch for the glowing **"Copied!"** badge. |
+| ✍️ **Paste cursed code** | Drop any JS/TS into the editor, or pick a **ritual spell** (preset cursed snippet). |
+| 💀 **Run Bug Exorcism** | Runs the real analyzer — nodes bleed red on bugs, the séance terminal streams. |
+| 🔊 **Cyber Sound FX** | Toggle synthesized séance stings on each transition _(off by default)_. |
+| 📺 **Scanlines** | Toggle the flickering CRT scanline overlay on the terminal. |
+| ⚡ **Grid FX** | Toggle the animated haunted grid backdrop. |
+| 📋 **Copy** | Copy the cleansed code — watch for the glowing **"Copied!"** badge. |
 
 ---
 
@@ -283,23 +287,24 @@ That's it — **no `.env`, no API keys, no setup.** 🎉
 │   ├── 📄 layout.tsx              # Root layout & metadata
 │   └── 📄 page.tsx                # 🖥️ HUD dashboard (3 panes + toggles)
 ├── 📂 components/
-│   ├── 📄 AgentCanvas.tsx         # Center canvas — nodes, pulses, neon trails
-│   ├── 📄 ControlPanel.tsx        # Left panel — directive, presets, run
-│   ├── 📄 Terminal.tsx            # Right terminal — logs, code, copy badge
-│   ├── 📄 NeonButton.tsx          # Glowing animated action button
-│   ├── 📄 StatusPill.tsx          # Live agent-phase indicator
+│   ├── 📄 AgentCanvas.tsx         # Haunted node graph — ghosts, blood pulse, trails
+│   ├── 📄 ControlPanel.tsx        # Ritual spells + cursed-code editor
+│   ├── 📄 Terminal.tsx            # Séance terminal — logs, clean code, copy badge
+│   ├── 📄 NeonButton.tsx          # Glowing haunted action button
+│   ├── 📄 StatusPill.tsx          # Live phase indicator + bug counter
 │   └── 📄 ToggleButton.tsx        # Sound / scanline / grid toggle
 ├── 📂 lib/
 │   ├── 📄 types.ts                # 🎯 Shared types + WORKFLOW_STAGES
-│   ├── 📄 presets.ts              # Preset workflow directives
+│   ├── 🩸 exorcist.ts             # Real static bug analyzer + code fixer
+│   ├── 📄 presets.ts              # Ritual spells (cursed code snippets)
 │   ├── 📄 useAgentStream.ts       # Client hook: EventSource → UI state
 │   ├── 📄 useCyberSound.ts        # 🔊 Web Audio SFX engine (synth, no assets)
 │   ├── 📄 sfxMap.ts               # Maps AgentEvent → sound effect
 │   └── 📄 useUiSettings.ts        # Sound / scanline / grid toggle state
 ├── 📂 .kiro/
-│   ├── 📋 specs/visual-agent-studio.md    # Spec — phases, stages, SSE contract
-│   ├── 🧭 steering/project-rules.md        # Steering — stack, design, NFRs
-│   └── 🪝 hooks/agent-execution.json       # Hooks — stage-transition triggers
+│   ├── 📋 specs/code-exorcist.md           # Spec — phases, stages, hauntings, SSE
+│   ├── 🧭 steering/horror-rules.md          # Steering — palette, theme, layout, NFRs
+│   └── 🪝 hooks/agent-execution.json        # Hooks — exorcism stage transitions
 └── 📂 docs/
     └── 🏆 DEVPOST.md              # Submission story + 3-min video script
 ```
@@ -312,16 +317,17 @@ That's it — **no `.env`, no API keys, no setup.** 🎉
 
 | Token | Hex | Preview | Role |
 | --- | --- | :---: | --- |
-| 🌑 **Void** | `#080B13` | ![](https://img.shields.io/badge/-080B13-080B13?style=flat-square) | Deepest background |
-| 🌃 **Abyss** | `#0D111D` | ![](https://img.shields.io/badge/-0D111D-0D111D?style=flat-square) | Panel background |
-| 💠 **Neon Blue** | `#00F0FF` | ![](https://img.shields.io/badge/-00F0FF-00F0FF?style=flat-square) | Primary accent / active |
-| 🟣 **Neon Purple** | `#A855F7` | ![](https://img.shields.io/badge/-A855F7-A855F7?style=flat-square) | Secondary accent / code |
-| 🟢 **Emerald** | `#10B981` | ![](https://img.shields.io/badge/-10B981-10B981?style=flat-square) | Success / complete |
+| 🌑 **Void** | `#030508` | ![](https://img.shields.io/badge/-030508-030508?style=flat-square) | Pitch-black background |
+| 🩸 **Blood** | `#EF4444` | ![](https://img.shields.io/badge/-EF4444-EF4444?style=flat-square) | Bugs / hauntings (pulse) |
+| 🟣 **Haunt** | `#9333EA` | ![](https://img.shields.io/badge/-9333EA-9333EA?style=flat-square) | Reasoning / code |
+| 💠 **Spectral** | `#06B6D4` | ![](https://img.shields.io/badge/-06B6D4-06B6D4?style=flat-square) | Scanning / active |
+| 🟢 **Ecto** | `#10B981` | ![](https://img.shields.io/badge/-10B981-10B981?style=flat-square) | Cleansed / success |
 
 </div>
 
-Built with **glassmorphism** panels, layered **glow shadows**, an animated grid
-backdrop, and a CRT scanline overlay for that authentic cyberpunk HUD feel. 🌆
+Built with **glassmorphism** panels, layered **glow shadows**, an eerie **fog
+overlay**, glowing **rune borders**, an animated grid backdrop, and a flickering
+**CRT scanline** overlay for that authentic haunted cyber-gothic HUD feel. 🕯️
 
 ---
 
@@ -369,7 +375,7 @@ git push origin feat/my-awesome-feature
 ```
 
 > Please keep the build **zero-error** and follow the steering rules in
-> [`.kiro/steering/project-rules.md`](.kiro/steering/project-rules.md). 🧭
+> [`.kiro/steering/horror-rules.md`](.kiro/steering/horror-rules.md). 🧭
 
 ---
 
@@ -385,10 +391,10 @@ Released under the [**MIT License**](LICENSE) — summon responsibly. 🕯️
 
 <br/>
 
-**`« NecroCode — where legacy code goes to be reborn »`**
+**`« NecroCode — where cursed code goes to be exorcised »`**
 
 <br/>
 
-Made with 🖤, ⚡ neon, and [**Kiro**](https://kiro.dev) · 🎃 Kiroween 2026
+Made with 🖤, 🩸 blood, and [**Kiro**](https://kiro.dev) · 🎃 Kiroween 2026
 
 </div>

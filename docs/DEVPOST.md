@@ -62,18 +62,19 @@ as first-class artifacts:
 
 ### 📋 Specs — we designed before we built
 
-We started in `.kiro/specs/visual-agent-studio.md`, formalizing the **five agent
-phases**, **four workflow stages**, and — crucially — the exact **SSE event
-contract** (`AgentEvent`). The spec links to the shared `lib/types.ts` via Kiro's
+We started in `.kiro/specs/code-exorcist.md`, formalizing the **five exorcist
+phases**, **four exorcism stages**, the detected **hauntings**, and — crucially —
+the exact **SSE event contract** (`AgentEvent`). The spec links to the shared
+`lib/types.ts` and the `lib/exorcist.ts` analyzer via Kiro's
 `#[[file:…]]` syntax, so the contract is a single source of truth that both the
 server route and the React client import. This meant the backend and frontend
 never drifted.
 
 ### 🧭 Steering Docs — we kept Kiro on-brand
 
-`.kiro/steering/project-rules.md` encodes the **authoritative tech stack**, the
-**neon/glass design tokens** (`#00F0FF`, `#A855F7`, `#10B981`), the **HUD layout
-contract**, and hard **non-functional requirements** — strict TypeScript, full
+`.kiro/steering/horror-rules.md` encodes the **haunted cyber-gothic theme**, the
+**authoritative palette** (`#EF4444`, `#9333EA`, `#06B6D4`, `#10B981`), the **HUD
+layout contract**, and hard **non-functional requirements** — strict TypeScript, full
 responsiveness, and a zero-error build. Because steering is injected into every
 interaction, Kiro consistently produced code that matched our design system
 without us re-explaining it each turn.
@@ -187,8 +188,8 @@ polishing the micro-interactions last.
 
 ### `1:45 – 2:35` — How Kiro built it
 
-- **On screen:** Open `.kiro/specs/visual-agent-studio.md`, then
-  `.kiro/steering/project-rules.md`, then `.kiro/hooks/agent-execution.json`.
+- **On screen:** Open `.kiro/specs/code-exorcist.md`, then
+  `.kiro/steering/horror-rules.md`, then `.kiro/hooks/agent-execution.json`.
 - **Narration:** "Here's the part we love. NecroCode is a Kiro-native project.
   We started with a **Spec** — the agent phases, the workflow stages, and the
   exact streaming event contract. A **Steering Doc** locked in our tech stack and

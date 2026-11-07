@@ -7,15 +7,16 @@ import type { CyberSfx } from "@/lib/useCyberSound";
  */
 export function sfxForEvent(event: AgentEvent): CyberSfx | null {
   if (event.phase === "complete") return "complete";
+
+  // A newly reported bug gets the ominous haunting sting.
+  if (event.bug && event.nodeStatus === "haunted") return "haunt";
   if (event.level === "error") return "error";
 
-  // A node switching to "active" is the most audible transition.
-  if (event.nodeStatus === "active") {
-    return event.phase === "tool_call" ? "tool" : "node";
-  }
+  // A node completing / cleansed gets a confirmation chime.
+  if (event.nodeStatus === "cleansed") return "success";
 
-  // A node completing gets a pleasant confirmation chime.
-  if (event.nodeStatus === "done") return "success";
+  // A node switching to active is an audible transition.
+  if (event.nodeStatus === "active") return "node";
 
   return null;
 }

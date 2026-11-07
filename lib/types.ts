@@ -1,26 +1,41 @@
 /**
- * Shared types for the NecroCode Visual Agent Studio.
+ * Shared types for the NecroCode "Code Exorcist" Visual Agent Studio.
  * Used by both the SSE API route (server) and the UI (client).
  */
 
 export type AgentPhase =
   | "idle"
-  | "thinking"
-  | "tool_call"
-  | "executing"
+  | "summoning" // reading / parsing the submitted code
+  | "scanning" // hunting for bugs (the glitch scanner)
+  | "exorcising" // reasoning about + fixing each bug
   | "complete";
 
-/** The four canonical workflow stages shown on the execution canvas. */
+/** The four canonical exorcism stages shown on the haunted node graph. */
 export type StageId =
-  | "input_parsing"
-  | "context_scanning"
-  | "kiro_hook_trigger"
-  | "code_generation";
+  | "input_code"
+  | "glitch_scanner"
+  | "exorcism_reasoning"
+  | "clean_output";
 
-export type NodeStatus = "pending" | "active" | "done" | "error";
+/**
+ * Node lifecycle:
+ *  - pending   : not reached yet
+ *  - active    : currently working
+ *  - haunted   : bug(s) detected here — pulses blood-red
+ *  - cleansed  : finished successfully — spectral green/purple
+ *  - error     : hard failure
+ */
+export type NodeStatus = "pending" | "active" | "haunted" | "cleansed" | "error";
 
 /** Terminal log severities drive the color of each streamed line. */
-export type LogLevel = "info" | "success" | "warn" | "error" | "system" | "code";
+export type LogLevel =
+  | "info"
+  | "success"
+  | "warn"
+  | "error"
+  | "system"
+  | "code"
+  | "haunt"; // spooky narrative lines
 
 /** A single Server-Sent Event payload emitted by /api/agent/stream. */
 export interface AgentEvent {
@@ -28,7 +43,7 @@ export interface AgentEvent {
   seq: number;
   /** High-level reasoning phase of the agent. */
   phase: AgentPhase;
-  /** The workflow stage this event belongs to (null for lifecycle events). */
+  /** The exorcism stage this event belongs to (null for lifecycle events). */
   stage: StageId | null;
   /** Status to apply to the stage node on the canvas. */
   nodeStatus: NodeStatus | null;
@@ -36,6 +51,10 @@ export interface AgentEvent {
   level: LogLevel;
   /** Human-readable terminal message. */
   message: string;
+  /** True when this event reports a detected bug (drives red pulses). */
+  bug: boolean;
+  /** Running count of bugs detected so far. */
+  bugCount: number;
   /** 0..100 overall progress. */
   progress: number;
   /** ISO timestamp (server clock). */
@@ -48,26 +67,26 @@ export interface StageDef {
   description: string;
 }
 
-/** Canonical ordered workflow definition — single source of truth. */
+/** Canonical ordered exorcism definition — single source of truth. */
 export const WORKFLOW_STAGES: StageDef[] = [
   {
-    id: "input_parsing",
-    label: "Input Parsing",
-    description: "Tokenize the directive & extract intent vectors.",
+    id: "input_code",
+    label: "Input Code",
+    description: "Receive the cursed snippet & parse its structure.",
   },
   {
-    id: "context_scanning",
-    label: "Context Scanning",
-    description: "Scan repository graph & steering context.",
+    id: "glitch_scanner",
+    label: "Glitch Scanner",
+    description: "Hunt the code for syntax & logic demons.",
   },
   {
-    id: "kiro_hook_trigger",
-    label: "Kiro Hook Trigger",
-    description: "Fire configured .kiro hooks on matched events.",
+    id: "exorcism_reasoning",
+    label: "Exorcism Reasoning",
+    description: "Reason about each haunting & banish it.",
   },
   {
-    id: "code_generation",
-    label: "Code Generation",
-    description: "Synthesize, validate & emit TypeScript-safe code.",
+    id: "clean_output",
+    label: "Clean Code Output",
+    description: "Emit the purified, mortal-safe code.",
   },
 ];

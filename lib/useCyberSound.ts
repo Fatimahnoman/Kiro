@@ -19,6 +19,7 @@ export type CyberSfx =
   | "success" // a stage completes
   | "complete" // whole workflow finishes
   | "error" // stream failure
+  | "haunt" // a bug / haunting is detected (ominous)
   | "copy"; // copy-to-clipboard
 
 interface Blip {
@@ -48,6 +49,11 @@ const RECIPES: Record<CyberSfx, Blip[]> = {
     { type: "sine", freq: 987.77, dur: 0.22, gain: 0.08 },
   ],
   error: [{ type: "sawtooth", freq: 180, toFreq: 80, dur: 0.25, gain: 0.08 }],
+  // Ominous descending tritone-ish sting for a detected haunting.
+  haunt: [
+    { type: "sawtooth", freq: 220, toFreq: 155, dur: 0.22, gain: 0.07 },
+    { type: "sine", freq: 110, toFreq: 82, dur: 0.3, gain: 0.06 },
+  ],
   copy: [{ type: "square", freq: 880, toFreq: 1320, dur: 0.07, gain: 0.05 }],
 };
 

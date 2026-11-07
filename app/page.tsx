@@ -1,29 +1,28 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertTriangle, ScanLine, Volume2, VolumeX, Zap } from "lucide-react";
+import { AlertTriangle, ScanLine, Skull, Volume2, VolumeX, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { AgentCanvas } from "@/components/AgentCanvas";
 import { ControlPanel } from "@/components/ControlPanel";
 import { Terminal } from "@/components/Terminal";
 import { ToggleButton } from "@/components/ToggleButton";
-import { WORKFLOW_PRESETS } from "@/lib/presets";
+import { RITUAL_SPELLS } from "@/lib/presets";
 import { sfxForEvent } from "@/lib/sfxMap";
 import { useAgentStream } from "@/lib/useAgentStream";
 import { useCyberSound } from "@/lib/useCyberSound";
 import { useUiSettings } from "@/lib/useUiSettings";
 
-const DEFAULT_DIRECTIVE =
-  "Purge legacy spaghetti and regenerate a clean, typed module.";
+const DEFAULT_CODE = RITUAL_SPELLS[RITUAL_SPELLS.length - 1].code;
 
 export default function Home() {
   const { state, run, reset } = useAgentStream();
   const { settings, toggle } = useUiSettings();
   const { play } = useCyberSound(settings.soundOn);
 
-  const [directive, setDirective] = useState(DEFAULT_DIRECTIVE);
-  const [selectedPresetId, setSelectedPresetId] = useState<string | null>(
-    "exorcism",
+  const [code, setCode] = useState(DEFAULT_CODE);
+  const [selectedSpellId, setSelectedSpellId] = useState<string | null>(
+    RITUAL_SPELLS[RITUAL_SPELLS.length - 1].id,
   );
 
   // Track which events we've already sonified so re-renders don't replay them.
@@ -39,18 +38,23 @@ export default function Home() {
     }
   }, [state.logs, settings.soundOn, play]);
 
-  const handleSelectPreset = (presetDirective: string) => {
-    setDirective(presetDirective);
-    const match = WORKFLOW_PRESETS.find((p) => p.directive === presetDirective);
-    setSelectedPresetId(match ? match.id : null);
+  const handleSelectSpell = (spellCode: string) => {
+    setCode(spellCode);
+    const match = RITUAL_SPELLS.find((p) => p.code === spellCode);
+    setSelectedSpellId(match ? match.id : null);
     play("click");
+  };
+
+  const handleCodeChange = (value: string) => {
+    setCode(value);
+    setSelectedSpellId(null); // custom edits deselect the preset
   };
 
   const handleRun = () => {
     if (state.running) return;
     lastSonifiedSeq.current = -1;
     play("click");
-    run(directive.trim().length > 0 ? directive : DEFAULT_DIRECTIVE);
+    run(code.trim().length > 0 ? code : DEFAULT_CODE);
   };
 
   const handleReset = () => {
@@ -60,12 +64,13 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-void">
-      {/* Ambient background glows */}
-      <div className="pointer-events-none fixed -left-40 -top-40 h-96 w-96 rounded-full bg-neon-blue/10 blur-3xl" />
-      <div className="pointer-events-none fixed -bottom-40 -right-40 h-96 w-96 rounded-full bg-neon-purple/10 blur-3xl" />
+    <main className="haunted-vignette relative min-h-screen overflow-hidden bg-void">
+      {/* Eerie fog + ambient blood/haunt glows */}
+      <div className="pointer-events-none fixed inset-0 bg-fog animate-fog-drift opacity-80" />
+      <div className="pointer-events-none fixed -left-40 -top-40 h-96 w-96 rounded-full bg-blood/10 blur-3xl" />
+      <div className="pointer-events-none fixed -bottom-40 -right-40 h-96 w-96 rounded-full bg-haunt/10 blur-3xl" />
       <div
-        className={`pointer-events-none fixed inset-0 bg-grid-fade bg-grid opacity-[0.15] ${
+        className={`pointer-events-none fixed inset-0 bg-grid-fade bg-grid opacity-[0.13] ${
           settings.gridAnimated ? "animate-grid-drift" : ""
         }`}
       />
@@ -73,29 +78,29 @@ export default function Home() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-[1600px] flex-col gap-4 p-4 lg:h-screen">
         {/* Top banner + toggle toolbar */}
         <header className="glass flex flex-col gap-3 rounded-2xl px-5 py-3 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-col gap-0.5">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-slate-400">
-              NecroCode <span className="text-neon-blue">//</span> Visual Agent
-              Studio
-            </p>
-            <p className="font-mono text-[10px] uppercase tracking-wider text-slate-600">
-              Next.js 15 · Framer Motion · SSE · Kiro-ready
-            </p>
+          <div className="flex items-center gap-3">
+            <Skull className="h-5 w-5 text-blood animate-flicker" aria-hidden />
+            <div className="flex flex-col gap-0.5">
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-bone/80">
+                NecroCode <span className="text-blood">//</span> Code Exorcist
+              </p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-haunt/60">
+                Haunted Cyber-Gothic AI · Kiroween 2026
+              </p>
+            </div>
           </div>
 
-          {/* Interactive toggles (requirements 1c + 2a). */}
           <div className="flex flex-wrap items-center gap-2">
             <ToggleButton
               label="Cyber Sound FX"
               icon={settings.soundOn ? Volume2 : VolumeX}
               active={settings.soundOn}
               onToggle={() => {
-                // Audible confirmation only when turning ON.
                 if (!settings.soundOn) play("click");
                 toggle("soundOn");
               }}
-              accent="purple"
-              title="Toggle synthesized Web Audio sound effects"
+              accent="haunt"
+              title="Toggle synthesized Web Audio séance effects"
             />
             <ToggleButton
               label="Scanlines"
@@ -105,7 +110,7 @@ export default function Home() {
                 play("click");
                 toggle("scanlinesOn");
               }}
-              accent="blue"
+              accent="spectral"
               title="Toggle the CRT scanline overlay on the terminal"
             />
             <ToggleButton
@@ -116,8 +121,8 @@ export default function Home() {
                 play("click");
                 toggle("gridAnimated");
               }}
-              accent="green"
-              title="Toggle the animated cyberpunk grid backdrop"
+              accent="blood"
+              title="Toggle the animated haunted grid backdrop"
             />
           </div>
         </header>
@@ -129,7 +134,7 @@ export default function Home() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="flex items-center gap-2 rounded-xl border border-neon-rose/40 bg-neon-rose/10 px-4 py-2 font-mono text-xs text-neon-rose"
+              className="flex items-center gap-2 rounded-xl border border-blood/40 bg-blood/10 px-4 py-2 font-mono text-xs text-blood"
             >
               <AlertTriangle className="h-4 w-4" aria-hidden />
               {state.error}
@@ -138,22 +143,23 @@ export default function Home() {
         </AnimatePresence>
 
         {/* HUD grid */}
-        <div className="grid flex-1 grid-cols-1 gap-4 lg:min-h-0 lg:grid-cols-[300px_1fr_360px]">
+        <div className="grid flex-1 grid-cols-1 gap-4 lg:min-h-0 lg:grid-cols-[320px_1fr_380px]">
           <div className="lg:min-h-0">
             <ControlPanel
-              directive={directive}
-              onDirectiveChange={setDirective}
-              onSelectPreset={handleSelectPreset}
-              selectedPresetId={selectedPresetId}
+              code={code}
+              onCodeChange={handleCodeChange}
+              onSelectSpell={handleSelectSpell}
+              selectedSpellId={selectedSpellId}
               onRun={handleRun}
               onReset={handleReset}
               running={state.running}
               phase={state.phase}
               progress={state.progress}
+              bugCount={state.bugCount}
             />
           </div>
 
-          <div className="min-h-[420px] lg:min-h-0">
+          <div className="min-h-[440px] lg:min-h-0">
             <AgentCanvas
               nodes={state.nodes}
               activeStage={state.activeStage}
